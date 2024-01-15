@@ -1,0 +1,61 @@
+{
+  "Workflows": [
+    {
+      "Path": null,
+      "SortBy": 0,
+      "VariablesSectionElementsOrder": [],
+      "ArgumentsSectionElementsOrder": null,
+      "ConstantsSectionElementsOrder": [],
+      "AddedNamespaces": null
+    },
+    {
+      "Path": "Main.xaml",
+      "SortBy": 0,
+      "VariablesSectionElementsOrder": [
+        "productsData&Flowchart_1",
+        "fileExists&Sequence_1",
+        "configFileSheets&Sequence_1",
+        "configFilePath&Sequence_1",
+        "configVariables&Sequence_1",
+        "configLinksData&Sequence_1"
+      ],
+      "ArgumentsSectionElementsOrder": [],
+      "ConstantsSectionElementsOrder": [],
+      "AddedNamespaces": null
+    },
+    {
+      "Path": "Initialization.xaml",
+      "SortBy": 0,
+      "VariablesSectionElementsOrder": [
+        "variable1&Sequence_1",
+        "configLinksData&Sequence_12",
+        "fileExists&Sequence_1",
+        "configVariables&Sequence_1",
+        "configFileSheets&Sequence_6",
+        "configFilePath&Sequence_1",
+        "productFilePath&Sequence_30"
+      ],
+      "ArgumentsSectionElementsOrder": [
+        "out_productsData",
+        "out_configLinksData"
+      ],
+      "ConstantsSectionElementsOrder": [],
+      "AddedNamespaces": null
+    },
+    {
+      "Path": "GetData.xaml",
+      "SortBy": 0,
+      "VariablesSectionElementsOrder": [
+        "extractedDataTable&Sequence_1",
+        "projectPath&Sequence_5",
+        "dateAndTime&Sequence_1"
+      ],
+      "ArgumentsSectionElementsOrder": [
+        "in_productsData",
+        "in_configLinksData"
+      ],
+      "ConstantsSectionElementsOrder": [],
+      "AddedNamespaces": null
+    }
+  ]
+}
