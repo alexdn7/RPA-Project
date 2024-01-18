@@ -12,6 +12,7 @@
       "Path": "Main.xaml",
       "SortBy": 0,
       "VariablesSectionElementsOrder": [
+        "filteredDataTable&Sequence_1",
         "productsData&Flowchart_1",
         "fileExists&Sequence_1",
         "configFileSheets&Sequence_1",
@@ -51,8 +52,19 @@
         "dateAndTime&Sequence_1"
       ],
       "ArgumentsSectionElementsOrder": [
+        "out_filteredDataTable",
         "in_productsData",
         "in_configLinksData"
+      ],
+      "ConstantsSectionElementsOrder": [],
+      "AddedNamespaces": null
+    },
+    {
+      "Path": "ProcessData.xaml",
+      "SortBy": 0,
+      "VariablesSectionElementsOrder": [],
+      "ArgumentsSectionElementsOrder": [
+        "in_out_filteredDataTable"
       ],
       "ConstantsSectionElementsOrder": [],
       "AddedNamespaces": null

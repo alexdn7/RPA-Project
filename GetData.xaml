@@ -2,11 +2,12 @@
   <x:Members>
     <x:Property Name="in_configLinksData" Type="InArgument(sd:DataTable)" />
     <x:Property Name="in_productsData" Type="InArgument(sd:DataTable)" />
+    <x:Property Name="out_filteredDataTable" Type="OutArgument(sd:DataTable)" />
   </x:Members>
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>927.2,2507.2</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1130.4,5558.4</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>GetData_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -51,6 +52,9 @@
       <x:String>UiPath.Excel</x:String>
       <x:String>UiPath.Excel.Model</x:String>
       <x:String>UiPath.Excel.Activities.Business</x:String>
+      <x:String>System.Activities.Runtime.Collections</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities.Models</x:String>
+      <x:String>System.Text.RegularExpressions</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -112,9 +116,20 @@
       <AssemblyReference>UiPath.Platform</AssemblyReference>
       <AssemblyReference>System.Runtime.InteropServices</AssemblyReference>
       <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>System.CodeDom</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic.Forms</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic.Core</AssemblyReference>
+      <AssemblyReference>System.Text.RegularExpressions</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.ViewModels</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="GetData" sap:VirtualizedContainerService.HintSize="937.6,2442.4" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <sap:WorkflowViewStateService.ViewState>
+    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+      <x:Boolean x:Key="ShouldExpandAll">True</x:Boolean>
+    </scg:Dictionary>
+  </sap:WorkflowViewStateService.ViewState>
+  <Sequence DisplayName="GetData" sap:VirtualizedContainerService.HintSize="1091.2,5493.6" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="dateAndTime" />
       <Variable x:TypeArguments="sd:DataTable" Name="extractedDataTable" />
@@ -124,7 +139,7 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Assign sap:VirtualizedContainerService.HintSize="875.2,81.6" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <Assign sap:VirtualizedContainerService.HintSize="1028.8,81.6" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[dateAndTime]</OutArgument>
       </Assign.To>
@@ -132,37 +147,37 @@
         <InArgument x:TypeArguments="x:String">[DateTime.Now.ToString("yyyyMMddHHmmss")]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[in_configLinksData]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="875.2,2208.8" sap2010:WorkflowViewState.IdRef="ForEachRow_2">
+    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[in_configLinksData]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="1028.8,5134.4" sap2010:WorkflowViewState.IdRef="ForEachRow_2">
       <ui:ForEachRow.Body>
         <ActivityAction x:TypeArguments="sd:DataRow">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="841.6,2020.8" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="995.2,4946.4" sap2010:WorkflowViewState.IdRef="Sequence_3">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <uix:NApplicationCard AttachMode="ByInstance" CloseMode="IfOpenedByAppBrowser" DisplayName="Use Browser Chrome: New Tab" sap:VirtualizedContainerService.HintSize="798.4,1931.2" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="DebuggerApi" OpenMode="IfNotOpen" ScopeGuid="15ab849a-1c85-4c55-8caf-a9c0049c814d" Version="V2">
+            <uix:NApplicationCard AttachMode="ByInstance" CloseMode="IfOpenedByAppBrowser" DisplayName="Use Browser Chrome: New Tab" sap:VirtualizedContainerService.HintSize="952,4856.8" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="DebuggerApi" OpenMode="IfNotOpen" ScopeGuid="15ab849a-1c85-4c55-8caf-a9c0049c814d" Version="V2">
               <uix:NApplicationCard.Body>
                 <ActivityAction x:TypeArguments="x:Object">
                   <ActivityAction.Argument>
                     <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
                   </ActivityAction.Argument>
-                  <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="764.8,1714.4" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                  <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="918.4,4640" sap2010:WorkflowViewState.IdRef="Sequence_4">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
-                    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[in_productsData]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="702.4,1599.2" sap2010:WorkflowViewState.IdRef="ForEachRow_3">
+                    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[in_productsData]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="856,4524.8" sap2010:WorkflowViewState.IdRef="ForEachRow_3">
                       <ui:ForEachRow.Body>
                         <ActivityAction x:TypeArguments="sd:DataRow">
                           <ActivityAction.Argument>
                             <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
                           </ActivityAction.Argument>
-                          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="668.8,1411.2" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="822.4,4336.8" sap2010:WorkflowViewState.IdRef="Sequence_5">
                             <Sequence.Variables>
                               <Variable x:TypeArguments="x:String" Default="C:\Users\User\Documents\GitHub\RPA-Project" Name="projectPath" />
                             </Sequence.Variables>
@@ -171,42 +186,170 @@
                                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                               </scg:Dictionary>
                             </sap:WorkflowViewStateService.ViewState>
-                            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'INPUT'" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="625.6,218.4" sap2010:WorkflowViewState.IdRef="NTypeInto_1" ScopeIdentifier="15ab849a-1c85-4c55-8caf-a9c0049c814d" Text="[CurrentRow.Item(&quot;ProductName&quot;).ToString +&quot;[k(Enter)]&quot;]" Version="V3">
+                            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'INPUT'" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="779.2,218.4" sap2010:WorkflowViewState.IdRef="NTypeInto_1" ScopeIdentifier="15ab849a-1c85-4c55-8caf-a9c0049c814d" Text="[CurrentRow.Item(&quot;ProductName&quot;).ToString +&quot;[k(Enter)]&quot;]" Version="V3">
                               <uix:NTypeInto.Target>
                                 <uix:TargetAnchorable BrowserURL="https://altex.ro/" CvTextArea="409, 285, 184, 18" CvTextArgument="Cauta produsul dorit" CvType="Text" DesignTimeRectangle="386, 262, 560, 64" DesignTimeScaleFactor="1.25" ElementType="InputBox" FriendlyName="'INPUT'" FullSelectorArgument="&lt;webctrl tag='INPUT' type='text' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='INPUT' type='text' class='jsx-941926444 SearchInputComponent&amp;#xA;                            w-full mb-0 text-black border border-gray-light pt-14px pb-15px pl-19px leading-20.8&amp;#xA;                            rounded-bl-lg&amp;#xA;                            rounded-tr-lg bg-white&amp;#xA;                            lg:w-102&amp;#xA;                            outline-none' aaname='' /&gt;" Guid="143402f5-6390-4c13-bdf6-cad72639bbed" ImageBase64="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" InformativeScreenshot="3936fdd6a99dfc50826cf3396db5d497.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Electronice si electrocasnice online la cel mai mic pret' /&gt;" SearchSteps="Selector, Image, CV" Version="V2" Visibility="Interactive" />
                               </uix:NTypeInto.Target>
                             </uix:NTypeInto>
-                            <ueab:ExcelProcessScopeX DisplayAlerts="{x:Null}" ExistingProcessAction="{x:Null}" FileConflictResolution="{x:Null}" LaunchMethod="{x:Null}" LaunchTimeout="{x:Null}" MacroSettings="{x:Null}" ProcessMode="{x:Null}" ShowExcelWindow="{x:Null}" DisplayName="Excel Process Scope" sap:VirtualizedContainerService.HintSize="625.6,1063.2" sap2010:WorkflowViewState.IdRef="ExcelProcessScopeX_1">
+                            <ueab:ExcelProcessScopeX DisplayAlerts="{x:Null}" ExistingProcessAction="{x:Null}" FileConflictResolution="{x:Null}" LaunchMethod="{x:Null}" LaunchTimeout="{x:Null}" MacroSettings="{x:Null}" ProcessMode="{x:Null}" ShowExcelWindow="{x:Null}" DisplayName="Excel Process Scope" sap:VirtualizedContainerService.HintSize="779.2,3988.8" sap2010:WorkflowViewState.IdRef="ExcelProcessScopeX_1">
                               <ueab:ExcelProcessScopeX.Body>
                                 <ActivityAction x:TypeArguments="ui:IExcelProcess">
                                   <ActivityAction.Argument>
                                     <DelegateInArgument x:TypeArguments="ui:IExcelProcess" Name="ExcelProcessScopeTag" />
                                   </ActivityAction.Argument>
-                                  <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="592,976.8" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                                  <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="745.6,3902.4" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                                    <Sequence.Variables>
+                                      <Variable x:TypeArguments="sd:DataTable" Name="filteredDataTable" />
+                                      <Variable x:TypeArguments="x:String" Name="numerOfResultsFromSite" />
+                                      <Variable x:TypeArguments="x:Int32" Name="resultsNumberInteger" />
+                                      <Variable x:TypeArguments="x:Int32" Name="numberOfOffers" />
+                                      <Variable x:TypeArguments="x:String" Name="numberOfOffersFromSite" />
+                                    </Sequence.Variables>
                                     <sap:WorkflowViewStateService.ViewState>
                                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                       </scg:Dictionary>
                                     </sap:WorkflowViewStateService.ViewState>
-                                    <uix:NExtractData AppendResults="False" ContinueOnError="True" DisplayName="Extract Table Data" ExtractDataSettings="&lt;Table xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' Type='Structured' AddCvHeader='true' IsScrollEnabled='false'&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataColumn' Name='Title' ReferenceName='Column0'&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xD;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xD;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;true&lt;/CanExtractSimilar&gt;&#xD;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xD;&#xA;&#x9;&lt;/Column&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataColumn' Name='URL' ReferenceName='Column1'&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xD;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsExtra&gt;true&lt;/IsExtra&gt;&#xD;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;true&lt;/CanExtractSimilar&gt;&#xD;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xD;&#xA;&#x9;&lt;/Column&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataColumn' Name='Price' ReferenceName='Column2'&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xD;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xD;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xD;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xD;&#xA;&#x9;&lt;/Column&gt;&#xD;&#xA;&lt;/Table&gt;" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;/row&gt;&lt;column exact='1' name='Column0' attr='fulltext' name2='Column1' attr2='href'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='3' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='h2' idx='1' /&gt;&lt;webctrl tag='a' idx='1' /&gt;&lt;/column&gt;&lt;column exact='1' name='Column2' attr='fulltext'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='4' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='p' idx='2' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="529.6,157.6" sap2010:WorkflowViewState.IdRef="NExtractData_1" LimitExtractionTo="None" MaximumResults="0" ScopeIdentifier="15ab849a-1c85-4c55-8caf-a9c0049c814d" Version="V3">
+                                    <uix:NGetText DisplayName="Get Text '462 de'" sap:VirtualizedContainerService.HintSize="683.2,157.6" sap2010:WorkflowViewState.IdRef="NGetText_1" ScopeIdentifier="15ab849a-1c85-4c55-8caf-a9c0049c814d" TextString="[numerOfResultsFromSite]" Version="V3">
+                                      <uix:NGetText.Target>
+                                        <uix:TargetAnchorable BrowserURL="https://www.emag.ro/search/Samsung+Galaxy+S23" CvTextArea="416, 378, 836, 29" CvType="AnyWordGroup" DesignTimeRectangle="419, 382, 835, 31" DesignTimeScaleFactor="1.25" FriendlyName="'462 de'" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;section&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;span' parentid='main-container' tag='SPAN' /&gt;" FuzzySelectorArgument="&lt;webctrl type='' parentid='main-container' tag='SPAN' class='title-phrasing title-phrasing-sm' aaname='                                                                       462 de rezultate in  pentru                                           ' /&gt;" Guid="3cf945c4-75d0-4c66-8890-e604a90fd451" ImageBase64="" InformativeScreenshot="2b9e85c5ea37a5f0d8754048ac7a3e03.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Cauți Samsung Galaxy S23? Alege din oferta eMAG.ro' /&gt;" SearchSteps="Selector" Version="V2" Visibility="Interactive" />
+                                      </uix:NGetText.Target>
+                                    </uix:NGetText>
+                                    <Assign sap:VirtualizedContainerService.HintSize="683.2,81.6" sap2010:WorkflowViewState.IdRef="Assign_2">
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="x:Int32">[resultsNumberInteger]</OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="x:Int32">[Integer.Parse(Text.RegularExpressions.Regex.Match(numerOfResultsFromSite, "(\d+)\b").Value)]</InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                    <uix:NGetText DisplayName="Get Text 'Oferte (53)'" sap:VirtualizedContainerService.HintSize="683.2,157.6" sap2010:WorkflowViewState.IdRef="NGetText_2" ScopeIdentifier="15ab849a-1c85-4c55-8caf-a9c0049c814d" TextString="[numberOfOffersFromSite]" Version="V3">
+                                      <uix:NGetText.Target>
+                                        <uix:TargetAnchorable BrowserURL="https://www.emag.ro/search/Samsung%20Galaxy%20S23?ref=effective_search" CvTextArea="121, 631, 31, 18" CvType="AnyWordGroup" DesignTimeRectangle="125, 629, 28, 22" DesignTimeScaleFactor="1.25" ElementType="Text" FriendlyName="'(53)'" FullSelectorArgument="&lt;webctrl class='text-muted' tag='SPAN' /&gt;" FuzzySelectorArgument="&lt;webctrl class='text-muted' tag='SPAN' type='' /&gt;" Guid="5bbc9beb-6582-4a13-8498-0d5dc7a0898c" ImageBase64="" InformativeScreenshot="e334e08b3e2cf7c2b57264366d2a3400.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Cauți Samsung Galaxy S23? Alege din oferta eMAG.ro' /&gt;" SearchSteps="Selector" Version="V2" Visibility="Interactive">
+                                          <uix:TargetAnchorable.Anchors>
+                                            <scg:List x:TypeArguments="uix:ITarget" Capacity="4">
+                                              <uix:Target CvElementArea="37, 630, 22, 21" CvTextArea="69, 630, 83, 19" CvTextArgument="Oferte (53)" CvType="CheckBox" DesignTimeRectangle="40, 629, 321, 25" ElementType="Text" FriendlyName="'Oferte (53)'" FullSelectorArgument="&lt;webctrl aaname='Oferte (53)' tag='A' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='Oferte (53)' tag='A' type='' class='js-filter-item filter-item' check:innerText='Oferte (53)' /&gt;" SearchSteps="Selector, CV" />
+                                            </scg:List>
+                                          </uix:TargetAnchorable.Anchors>
+                                        </uix:TargetAnchorable>
+                                      </uix:NGetText.Target>
+                                    </uix:NGetText>
+                                    <Assign sap:VirtualizedContainerService.HintSize="683.2,81.6" sap2010:WorkflowViewState.IdRef="Assign_4">
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="x:Int32">[numberOfOffers]</OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="x:Int32">[Integer.Parse(Text.RegularExpressions.Regex.Match(numberOfOffersFromSite, "(\d+)\b").Value)]</InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                    <uix:NExtractData AppendResults="False" ContinueOnError="True" DataTable="[extractedDataTable]" DisplayName="Extract Table Data" ExtractDataSettings="&lt;Table xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' Type='Structured' AddCvHeader='true' IsScrollEnabled='false'&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column0' Name='Title'&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xD;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xD;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;true&lt;/CanExtractSimilar&gt;&#xD;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xD;&#xA;&#x9;&lt;/Column&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column1' Name='URL'&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xD;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsExtra&gt;true&lt;/IsExtra&gt;&#xD;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;true&lt;/CanExtractSimilar&gt;&#xD;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xD;&#xA;&#x9;&lt;/Column&gt;&#xD;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column2' Name='Price'&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xD;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xD;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xD;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xD;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xD;&#xA;&#x9;&lt;/Column&gt;&#xD;&#xA;&lt;/Table&gt;" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;/row&gt;&lt;column exact='1' name='Column0' attr='fulltext' name2='Column1' attr2='href'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='3' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='h2' idx='1' /&gt;&lt;webctrl tag='a' idx='1' /&gt;&lt;/column&gt;&lt;column exact='1' name='Column2' attr='fulltext'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='4' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='p' idx='2' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="683.2,157.6" sap2010:WorkflowViewState.IdRef="NExtractData_1" InteractionMode="Simulate" LimitExtractionTo="None" MaximumResults="0" ScopeIdentifier="15ab849a-1c85-4c55-8caf-a9c0049c814d" Version="V3">
                                       <uix:NExtractData.Target>
-                                        <uix:TargetAnchorable DesignTimeRectangle="393, -6477, 1510, 11685" DesignTimeScaleFactor="1.25" FriendlyName="'Super Pret'" FullSelectorArgument="&lt;webctrl id='card_grid' tag='DIV' /&gt;" Guid="dd974057-ab09-46fb-b7b6-badcab084d7c" InformativeScreenshot="68d4728844805e06dbdf86d23fd10c79.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Cauți Samsung Galaxy S23? Alege din oferta eMAG.ro' /&gt;" SearchSteps="Selector" Version="V2" Visibility="Interactive" />
+                                        <uix:TargetAnchorable BrowserURL="https://www.emag.ro/search/Samsung%20Galaxy%20S23?ref=effective_search" DesignTimeRectangle="393, -11745, 1510, 12279" DesignTimeScaleFactor="1.25" FriendlyName="'-50 LeiSuper'" FullSelectorArgument="&lt;webctrl id='card_grid' tag='DIV' /&gt;" Guid="7b6a3275-0ab0-4078-800c-a432e05aab27" InformativeScreenshot="68d4728844805e06dbdf86d23fd10c79.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Cauți Samsung Galaxy S23? Alege din oferta eMAG.ro' /&gt;" SearchSteps="Selector" Version="V2" Visibility="Interactive" />
                                       </uix:NExtractData.Target>
                                     </uix:NExtractData>
-                                    <ueab:ExcelApplicationCard Password="{x:Null}" ReadFormatting="{x:Null}" DisplayName="Use Excel File" sap:VirtualizedContainerService.HintSize="529.6,667.2" sap2010:WorkflowViewState.IdRef="ExcelApplicationCard_1" ResizeWindow="None" WorkbookPath="[projectPath + &quot;\OutputFrom&quot; + dateAndTime + CurrentRow(&quot;ProductName&quot;).ToString + &quot;.xlsx&quot;]">
+                                    <ueab:ExcelApplicationCard Password="{x:Null}" ReadFormatting="{x:Null}" DisplayName="Use Excel File" sap:VirtualizedContainerService.HintSize="683.2,2954.4" sap2010:WorkflowViewState.IdRef="ExcelApplicationCard_1" ResizeWindow="None" TemplatePath="OutputFrom20240118111927Samsung Galaxy S23.xlsx" UseTemplate="True" WorkbookPath="[projectPath + &quot;\OutputFrom&quot; + dateAndTime + CurrentRow(&quot;ProductName&quot;).ToString + &quot;.xlsx&quot;]">
                                       <ueab:ExcelApplicationCard.Body>
                                         <ActivityAction x:TypeArguments="ue:IWorkbookQuickHandle">
                                           <ActivityAction.Argument>
                                             <DelegateInArgument x:TypeArguments="ue:IWorkbookQuickHandle" Name="ExcelResult" />
                                           </ActivityAction.Argument>
-                                          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="496,397.6" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                                          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="649.6,2661.6" sap2010:WorkflowViewState.IdRef="Sequence_7">
                                             <sap:WorkflowViewStateService.ViewState>
                                               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                               </scg:Dictionary>
                                             </sap:WorkflowViewStateService.ViewState>
-                                            <ueab:WriteRangeX Destination="[ExcelResult.Sheet(&quot;eMag&quot;)]" DisplayName="Write DataTable to Excel" sap:VirtualizedContainerService.HintSize="433.6,160" sap2010:WorkflowViewState.IdRef="WriteRangeX_1" IgnoreEmptySource="False" Source="[extractedDataTable]" />
-                                            <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="333.6,85.6" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[&quot;a trecut de scriere&quot;]" />
+                                            <If Condition="[extractedDataTable IsNot Nothing]" sap:VirtualizedContainerService.HintSize="587.2,2549.6" sap2010:WorkflowViewState.IdRef="If_1">
+                                              <If.Then>
+                                                <Sequence sap:VirtualizedContainerService.HintSize="553.6,2132.8" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                                                  <sap:WorkflowViewStateService.ViewState>
+                                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                    </scg:Dictionary>
+                                                  </sap:WorkflowViewStateService.ViewState>
+                                                  <ui:FilterDataTable DataTable="[extractedDataTable]" DisplayName="Filter Data Table" FilterRowsMode="Keep" sap:VirtualizedContainerService.HintSize="510.4,162.4" sap2010:WorkflowViewState.IdRef="FilterDataTable_1" OutputDataTable="[filteredDataTable]" SelectColumnsMode="Remove">
+                                                    <ui:FilterDataTable.Filters>
+                                                      <scg:List x:TypeArguments="ui:FilterOperationArgument" Capacity="4">
+                                                        <ui:FilterOperationArgument BooleanOperator="And" Operator="CONTAINS">
+                                                          <ui:FilterOperationArgument.Column>
+                                                            <InArgument x:TypeArguments="x:String">[extractedDataTable.Columns(0).ToString]</InArgument>
+                                                          </ui:FilterOperationArgument.Column>
+                                                          <ui:FilterOperationArgument.Operand>
+                                                            <InArgument x:TypeArguments="x:String">[CurrentRow.Item("ProductName").ToString]</InArgument>
+                                                          </ui:FilterOperationArgument.Operand>
+                                                        </ui:FilterOperationArgument>
+                                                      </scg:List>
+                                                    </ui:FilterDataTable.Filters>
+                                                    <ui:FilterDataTable.SelectColumns>
+                                                      <scg:List x:TypeArguments="InArgument" Capacity="4">
+                                                        <x:Null />
+                                                      </scg:List>
+                                                    </ui:FilterDataTable.SelectColumns>
+                                                  </ui:FilterDataTable>
+                                                  <If Condition="[filteredDataTable. RowCount &gt; 0]" sap:VirtualizedContainerService.HintSize="510.4,1840.8" sap2010:WorkflowViewState.IdRef="If_2">
+                                                    <If.Then>
+                                                      <Sequence sap:VirtualizedContainerService.HintSize="476.8,1424" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                                                        <Sequence.Variables>
+                                                          <Variable x:TypeArguments="x:Int32" Name="tableSize" />
+                                                        </Sequence.Variables>
+                                                        <sap:WorkflowViewStateService.ViewState>
+                                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                          </scg:Dictionary>
+                                                        </sap:WorkflowViewStateService.ViewState>
+                                                        <ueab:WriteCellX AutoIncrementRow="True" Cell="[ExcelResult.Sheet(&quot;Sheet1&quot;).Cell(&quot;A1&quot;)]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="433.6,160" sap2010:WorkflowViewState.IdRef="WriteCellX_1" Value="[New KeyValuePair(Of String, Object)(&quot;Numarul de rezultate pentru cautare, pe site: &quot;, resultsNumberInteger)]" />
+                                                        <ueab:WriteCellX AutoIncrementRow="True" Cell="[ExcelResult.Sheet(&quot;Sheet1&quot;).Cell(&quot;A2&quot;)]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="433.6,160" sap2010:WorkflowViewState.IdRef="WriteCellX_4" Value="[New KeyValuePair(Of String, Object)(&quot;Numarul de produse la oferta&quot;, numberOfOffers)]" />
+                                                        <Assign sap:VirtualizedContainerService.HintSize="433.6,81.6" sap2010:WorkflowViewState.IdRef="Assign_3">
+                                                          <Assign.To>
+                                                            <OutArgument x:TypeArguments="x:Int32">[tableSize]</OutArgument>
+                                                          </Assign.To>
+                                                          <Assign.Value>
+                                                            <InArgument x:TypeArguments="x:Int32">[Convert.ToInt32(filteredDataTable.Rows.Count)]</InArgument>
+                                                          </Assign.Value>
+                                                        </Assign>
+                                                        <ueab:WriteCellX AutoIncrementRow="True" Cell="[ExcelResult.Sheet(&quot;Sheet1&quot;).Cell(&quot;A3&quot;)]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="433.6,160" sap2010:WorkflowViewState.IdRef="WriteCellX_2" Value="[New KeyValuePair(Of String, Object)(&quot;Numarul de rezultate, dupa filtrare&quot;, tableSize)]" />
+                                                        <ueab:WriteRangeX Destination="[ExcelResult.Sheet(&quot;eMag&quot;)]" DisplayName="Write DataTable to Excel" sap:VirtualizedContainerService.HintSize="433.6,160" sap2010:WorkflowViewState.IdRef="WriteRangeX_1" IgnoreEmptySource="False" Source="[filteredDataTable]" />
+                                                        <ueab:SortX DisplayName="Sort Range" HasHeaders="True" sap:VirtualizedContainerService.HintSize="433.6,212.8" sap2010:WorkflowViewState.IdRef="SortX_1" Range="[ExcelResult.Sheet(&quot;eMag&quot;)]">
+                                                          <ueab:SortX.Body>
+                                                            <ActivityAction>
+                                                              <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                                                                <sap:WorkflowViewStateService.ViewState>
+                                                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                                  </scg:Dictionary>
+                                                                </sap:WorkflowViewStateService.ViewState>
+                                                                <ueab:SortColumnX ColumnName="[ExcelResult.Sheet(&quot;eMAG&quot;).Cell(&quot;C1&quot;)]" DisplayName="Sort By Column" sap:VirtualizedContainerService.HintSize="382.4,62.4" sap2010:WorkflowViewState.IdRef="SortColumnX_1" SortDirection="Ascending" />
+                                                              </Sequence>
+                                                            </ActivityAction>
+                                                          </ueab:SortX.Body>
+                                                        </ueab:SortX>
+                                                        <ueab:WriteCellX AutoIncrementRow="True" Cell="[ExcelResult.Sheet(&quot;Sheet1&quot;).Cell(&quot;A4&quot;)]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="433.6,160" sap2010:WorkflowViewState.IdRef="WriteCellX_3" Value="[New KeyValuePair(Of String, Object)(&quot;Cel mai mic pret pentru cautarea ta&quot;, ExcelResult.Sheet(&quot;eMAG&quot;).Cell((&quot;C2&quot;)))]" />
+                                                      </Sequence>
+                                                    </If.Then>
+                                                    <If.Else>
+                                                      <Sequence sap:VirtualizedContainerService.HintSize="377.6,233.6" sap2010:WorkflowViewState.IdRef="Sequence_13">
+                                                        <sap:WorkflowViewStateService.ViewState>
+                                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                          </scg:Dictionary>
+                                                        </sap:WorkflowViewStateService.ViewState>
+                                                        <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334.4,144" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="[UiPath.Core.Activities.LogLevel.Info]" Message="[&quot;No data after filtering&quot; + CurrentRow.ToString]" />
+                                                      </Sequence>
+                                                    </If.Else>
+                                                  </If>
+                                                </Sequence>
+                                              </If.Then>
+                                              <If.Else>
+                                                <Sequence sap:VirtualizedContainerService.HintSize="377.6,233.6" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                                                  <sap:WorkflowViewStateService.ViewState>
+                                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                    </scg:Dictionary>
+                                                  </sap:WorkflowViewStateService.ViewState>
+                                                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334.4,142.4" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="[UiPath.Core.Activities.LogLevel.Info]" Message="[&quot;No data found! Please search another object!&quot; + CurrentRow.ToString]" />
+                                                </Sequence>
+                                              </If.Else>
+                                            </If>
                                           </Sequence>
                                         </ActivityAction>
                                       </ueab:ExcelApplicationCard.Body>
@@ -230,5 +373,6 @@
         </ActivityAction>
       </ui:ForEachRow.Body>
     </ui:ForEachRow>
+    <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="1028.8,85.6" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[&quot;Data was written successfully &quot;]" />
   </Sequence>
 </Activity>

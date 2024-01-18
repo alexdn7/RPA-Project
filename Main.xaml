@@ -103,6 +103,7 @@
       <Variable x:TypeArguments="x:String" Default="C:\Users\User\Documents\GitHub\RPA-Project\Config.xlsx" Name="configFilePath" />
       <Variable x:TypeArguments="sd:DataTable" Name="configVariables" />
       <Variable x:TypeArguments="sd:DataTable" Name="configLinksData" />
+      <Variable x:TypeArguments="sd:DataTable" Name="filteredDataTable" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -134,12 +135,8 @@
         </sap:WorkflowViewStateService.ViewState>
         <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Initialization.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="200,52.8" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Initialization.xaml">
           <ui:InvokeWorkflowFile.Arguments>
-            <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_configLinksData">
-              <VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="configLinksData" />
-            </OutArgument>
-            <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_productsData">
-              <VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="productsData" />
-            </OutArgument>
+            <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_configLinksData">[configLinksData]</OutArgument>
+            <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_productsData">[productsData]</OutArgument>
           </ui:InvokeWorkflowFile.Arguments>
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -153,6 +150,7 @@
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <av:Point x:Key="ShapeLocation">200,230.39999999999998</av:Point>
                 <av:Size x:Key="ShapeSize">200,52.8</av:Size>
+                <av:PointCollection x:Key="ConnectorLocation">200,256.79999999999995 170,256.79999999999995 170,50.000000000000014 67.6,50.000000000000014 67.6,80</av:PointCollection>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
             <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="GetData.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="333.6,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="GetData.xaml">
@@ -163,6 +161,9 @@
                 <InArgument x:TypeArguments="sd:DataTable" x:Key="in_productsData">
                   <VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="productsData" />
                 </InArgument>
+                <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_filteredDataTable">
+                  <VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="filteredDataTable" />
+                </OutArgument>
               </ui:InvokeWorkflowFile.Arguments>
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
